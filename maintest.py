@@ -34,7 +34,9 @@ class MainScreen(Screen):
 
 
 class SquareEquals(Screen):
-    pass
+    def math(self, instance):
+        self.result.text = str(int(self.a.text)*int(self.b.text)*int(self.c.text))
+
     # def count(self, a, b, c):
     #     a = int(a)
     #     b = int(b)
@@ -97,12 +99,12 @@ class SquareEquals(Screen):
 
 class MathFunction2(Screen):
     pass
-
 class MathFunction3(Screen):
     pass
 
 class MyScreenManager(ScreenManager):
     pass
+
 main_screen = Builder.load_string('''
 MyScreenManager:
     MainScreen:
@@ -127,15 +129,36 @@ MyScreenManager:
             on_release: app.root.current = 'MathFunction3'
 
 <SquareEquals>:
+    a: _a
+    b: _b
+    c: _c
+    result: _result
     name: 'SquareEquals'
-    BoxLayout:
+
+    Label:
+        text: 'Square Equals'
+        font_size: 30
+    GridLayout:
+        rows: 2
         orientation: 'vertical'
-        Label:
-            text: 'Square Equals'
-            font_size: 30
+        TextInput:
+            id: _a
+            multiline: 'false'
+        TextInput:
+            id: _b
+            multiline: 'false'
+        TextInput:
+            id: _c
+            multiline: 'false'
+        Button:
+            text: 'Do the math'
+            on_release: root.math(*args)
+        Button:
+            id: _result
+            text: ''
         BoxLayout:
             Button:
-                text: 'Go to main screenn'
+                text: 'Go to main screen'
                 font_size: 30
                 on_release: app.root.current = 'MainScreen'
 <MathFunction2>:
