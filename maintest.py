@@ -94,17 +94,6 @@ class SquareEquals(Screen):
     #
     # def menu(self, *args):
     #     self.manager.current = 'Main'
-import time
-import random
-
-class FirstScreen(Screen):
-    pass
-
-class SecondScreen(Screen):
-    pass
-
-class ColourScreen(Screen):
-    pass
 
 class MyScreenManager(ScreenManager):
     pass
@@ -114,8 +103,18 @@ MyScreenManager:
     SquareEquals:
 <MainScreen>:
     name: 'MainScreen'
-    FloatLayout:
-        size: (300,300)
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Math function # 1'
+            size_hint: (.5, .5)
+        Button:
+            text: 'Math function # 2'
+            size_hint: (.5, .5)
+        Button:
+            text: 'Math function # 3'
+            size_hint: (.5, .5)
+
         BoxLayout:
             Button:
                 text: 'goto second screen'
@@ -134,28 +133,6 @@ MyScreenManager:
                 font_size: 30
                 on_release: app.root.current = 'MainScreen'
 
-<ColourScreen>:
-    BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: 'colour {:.2},{:.2},{:.2} screen'.format(*root.colour[:3])
-            font_size: 30
-        Widget:
-            canvas:
-                Color:
-                    rgba: root.colour
-                Ellipse:
-                    pos: self.pos
-                    size: self.size
-        BoxLayout:
-            Button:
-                text: 'goto first screen'
-                font_size: 30
-                on_release: app.root.current = 'first'
-            Button:
-                text: 'get random colour screen'
-                font_size: 30
-                on_release: app.root.new_colour_screen()
 ''')
 
 class MyApp(App):
