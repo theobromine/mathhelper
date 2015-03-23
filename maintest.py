@@ -95,12 +95,20 @@ class SquareEquals(Screen):
     # def menu(self, *args):
     #     self.manager.current = 'Main'
 
+class MathFunction2(Screen):
+    pass
+
+class MathFunction3(Screen):
+    pass
+
 class MyScreenManager(ScreenManager):
     pass
 main_screen = Builder.load_string('''
 MyScreenManager:
     MainScreen:
     SquareEquals:
+    MathFunction2:
+    MathFunction3:
 <MainScreen>:
     name: 'MainScreen'
     BoxLayout:
@@ -108,18 +116,16 @@ MyScreenManager:
         Button:
             text: 'Math function # 1'
             size_hint: (.5, .5)
+            on_release: app.root.current = 'SquareEquals'
         Button:
             text: 'Math function # 2'
             size_hint: (.5, .5)
+            on_release: app.root.current = 'MathFunction2'
         Button:
             text: 'Math function # 3'
             size_hint: (.5, .5)
+            on_release: app.root.current = 'MathFunction3'
 
-        BoxLayout:
-            Button:
-                text: 'goto second screen'
-                font_size: 30
-                on_release: app.root.current = 'SquareEquals'
 <SquareEquals>:
     name: 'SquareEquals'
     BoxLayout:
@@ -129,7 +135,31 @@ MyScreenManager:
             font_size: 30
         BoxLayout:
             Button:
-                text: 'goto first screen'
+                text: 'Go to main screenn'
+                font_size: 30
+                on_release: app.root.current = 'MainScreen'
+<MathFunction2>:
+    name: 'MathFunction2'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Math Function 2'
+            font_size: 30
+        BoxLayout:
+            Button:
+                text: 'Go to main screen'
+                font_size: 30
+                on_release: app.root.current = 'MainScreen'
+<MathFunction3>:
+    name: 'MathFunction3'
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Math Function 3'
+            font_size: 30
+        BoxLayout:
+            Button:
+                text: 'Go to main screen'
                 font_size: 30
                 on_release: app.root.current = 'MainScreen'
 
