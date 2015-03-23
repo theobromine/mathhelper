@@ -134,33 +134,36 @@ MyScreenManager:
     c: _c
     result: _result
     name: 'SquareEquals'
-
-    Label:
-        text: 'Square Equals'
-        font_size: 30
-    GridLayout:
-        rows: 2
+    BoxLayout:
         orientation: 'vertical'
-        TextInput:
-            id: _a
-            multiline: 'false'
-        TextInput:
-            id: _b
-            multiline: 'false'
-        TextInput:
-            id: _c
-            multiline: 'false'
-        Button:
-            text: 'Do the math'
-            on_release: root.math(*args)
-        Button:
-            id: _result
-            text: ''
-        BoxLayout:
+        size_hint: (1,1)
+        Label:
+            text: 'Square Equals'
+            font_size: 30
+            size_hint: (.3,.1)
+        GridLayout:
+            rows: 2
+            orientation: 'vertical'
+            TextInput:
+                id: _a
+                multiline: 'false'
+            TextInput:
+                id: _b
+                multiline: 'false'
+            TextInput:
+                id: _c
+                multiline: 'false'
             Button:
-                text: 'Go to main screen'
-                font_size: 30
-                on_release: app.root.current = 'MainScreen'
+                text: 'Do the math'
+                on_release: root.math(*args)
+            Button:
+                id: _result
+                text: ''
+            BoxLayout:
+                Button:
+                    text: 'Go to main screen'
+                    font_size: 30
+                    on_release: app.root.current = 'MainScreen'
 <MathFunction2>:
     name: 'MathFunction2'
     BoxLayout:
