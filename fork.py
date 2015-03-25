@@ -6,6 +6,7 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.textinput import TextInput
 from kivy.properties import ObjectProperty
+from sympy import *
 from math import sqrt
 
 
@@ -15,10 +16,15 @@ class MainScreen(Screen):
 
 class SquareEquals(Screen):
     def math(self, instance):
+        a = int(self.a.text)
+        b = int(self.b.text)
+        c = int(self.c.text)
+        x = Symbol('x')
         dis = int(self.b.text)**2 - 4 * int(self.a.text) * int(self.c.text)
         if dis >= 0:
-            x1 = ((-1 * int(self.b.text)) + sqrt(dis))/(2*int(self.a.text))
-            x2 = ((-1 * int(self.b.text)) - sqrt(dis))/(2*int(self.a.text))
+            ans = solve((a*(x**2))+(b*x)+c, x)
+            x1 = ans[0]
+            x2 = ans[1]
             self.result.text = 'x1 = '+str(x1)+'\n x2 = '+str(x2)+'\n D = '+str(dis)
         else:
             self.result.text = 'D negative'
