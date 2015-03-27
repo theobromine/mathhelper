@@ -82,12 +82,15 @@ MyScreenManager:
             TextInput:
                 id: _a
                 multiline: 'false'
+                hint_text: 'Please enter A here'
             TextInput:
                 id: _b
                 multiline: 'false'
+                hint_text: 'Please enter B here'
             TextInput:
                 id: _c
                 multiline: 'false'
+                hint_text: 'Please enter C here'
             Button:
                 text: 'Do the math'
                 on_release: root.math(*args)
