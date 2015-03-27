@@ -11,10 +11,28 @@ from math import sqrt
 
 
 class MainScreen(Screen):
+    maintext = """
+.. _top:
+
+Welcome to MathHelper
+===========
+
+This is an **open source** project.
+
+It is still in early development.
+Please be patient and try to help out when you can.
+
+Current Features:
+
+- Solve polynomials using [I don't know the term]
+- More to come...
+
+"""
     pass
 
 
 class SquareEquals(Screen):
+
     def math(self, instance):
         try:
             a = int(self.a.text)
@@ -51,20 +69,24 @@ MyScreenManager:
     MathFunction3:
 <MainScreen>:
     name: 'MainScreen'
-    BoxLayout:
-        orientation: 'vertical'
-        Button:
-            text: 'Square equals'
-            size_hint: (.5, .5)
-            on_release: app.root.current = 'SquareEquals'
-        Button:
-            text: 'Math function # 2'
-            size_hint: (.5, .5)
-            on_release: app.root.current = 'MathFunction2'
-        Button:
-            text: 'Math function # 3'
-            size_hint: (.5, .5)
-            on_release: app.root.current = 'MathFunction3'
+    GridLayout:
+        cols: 2
+        RstDocument:
+            text: root.maintext
+        BoxLayout:
+            orientation: 'vertical'
+            Button:
+                text: 'Square equals'
+                #size_hint: (.5, .5)
+                on_release: app.root.current = 'SquareEquals'
+            Button:
+                text: 'Math function # 2'
+                #size_hint: (.5, .5)
+                on_release: app.root.current = 'MathFunction2'
+            Button:
+                text: 'Math function # 3'
+                #size_hint: (.5, .5)
+                on_release: app.root.current = 'MathFunction3'
 <SquareEquals>:
     a: _a
     b: _b
