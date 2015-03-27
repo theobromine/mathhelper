@@ -16,19 +16,21 @@ class MainScreen(Screen):
 
 class SquareEquals(Screen):
     def math(self, instance):
-        a = int(self.a.text)
-        b = int(self.b.text)
-        c = int(self.c.text)
-        x = Symbol('x')
-        dis = int(self.b.text)**2 - 4 * int(self.a.text) * int(self.c.text)
-        if dis >= 0:
-            ans = solve((a*(x**2))+(b*x)+c, x)
-            x1 = ans[0]
-            x2 = ans[1]
-            self.result.text = 'x1 = '+str(x1)+'\n x2 = '+str(x2)+'\n D = '+str(dis)
-        else:
-            self.result.text = 'D negative'
-
+        try:
+            a = int(self.a.text)
+            b = int(self.b.text)
+            c = int(self.c.text)
+            x = Symbol('x')
+            dis = int(self.b.text)**2 - 4 * int(self.a.text) * int(self.c.text)
+            if dis >= 0:
+                ans = solve((a*(x**2))+(b*x)+c, x)
+                x1 = ans[0]
+                x2 = ans[1]
+                self.result.text = 'x1 = '+str(x1)+'\n x2 = '+str(x2)+'\n D = '+str(dis)
+            else:
+                self.result.text = 'D negative'
+        except:
+            self.result.text = 'Input Error!'
 class MathFunction2(Screen):
     pass
 
@@ -82,12 +84,15 @@ MyScreenManager:
             TextInput:
                 id: _a
                 multiline: 'false'
+                hint_text: 'Please enter A here'
             TextInput:
                 id: _b
                 multiline: 'false'
+                hint_text: 'Please enter B here'
             TextInput:
                 id: _c
                 multiline: 'false'
+                hint_text: 'Please enter C here'
             Button:
                 text: 'Do the math'
                 on_release: root.math(*args)
