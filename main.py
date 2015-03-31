@@ -1,12 +1,7 @@
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
-from kivy.uix.floatlayout import FloatLayout
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.uix.textinput import TextInput
 from sympy import *
-from math import sqrt
 
 
 class MainScreen(Screen):
@@ -28,8 +23,17 @@ class SquareEquals(Screen):
         else:
             self.result.text = 'D negative'
 
-class MathFunction2(Screen):
-    pass
+
+class SystemsOfEquations(Screen):
+    def math(self, instance):
+        x = Symbol('x')
+        y = Symbol('y')
+        eq1 = sympify(self.fa.text)
+        sol1 = sympify(self.fb.text)
+        eq2 = sympify(self.sa.text)
+        sol2 = sympify(self.sb.text)
+        a = solve([Eq(eq1, sol1), Eq(eq2, sol2)], [x, y])
+        self.sr.text = pretty(a)
 
 
 class MathFunction3(Screen):
@@ -44,7 +48,7 @@ main_screen = Builder.load_string('''
 MyScreenManager:
     MainScreen:
     SquareEquals:
-    MathFunction2:
+    SystemsOfEquations:
     MathFunction3:
 <MainScreen>:
     name: 'MainScreen'
@@ -55,9 +59,9 @@ MyScreenManager:
             size_hint: (.5, .5)
             on_release: app.root.current = 'SquareEquals'
         Button:
-            text: 'Math function # 2'
+            text: 'Systems of equations'
             size_hint: (.5, .5)
-            on_release: app.root.current = 'MathFunction2'
+            on_release: app.root.current = 'SystemsOfEquations'
         Button:
             text: 'Math function # 3'
             size_hint: (.5, .5)
@@ -98,14 +102,44 @@ MyScreenManager:
                     text: 'Go to main screen'
                     font_size: 30
                     on_release: app.root.current = 'MainScreen'
-<MathFunction2>:
-    name: 'MathFunction2'
+<SystemsOfEquations>:
+    name: 'SystemsOfEquations'
+    fa: _fa
+    fb: _fb
+    sa: _sa
+    sb: _sb
+    sr: _sr
     BoxLayout:
         orientation: 'vertical'
+        size_hint: (1,1)
         Label:
-            text: 'Math Function 2'
-            font_size: 30
-        BoxLayout:
+            text: 'Systems of equations (use only "x" and "y"!)'
+            font_size: 25
+            size_hint: (.2,.1)
+        GridLayout:
+            cols: 3
+            TextInput:
+                id: _fa
+                multiline: False
+            Label:
+                text: '='
+            TextInput:
+                id: _fb
+                multiline: False
+            TextInput:
+                id: _sa
+                multiline: False
+            Label:
+                text: '='
+            TextInput:
+                id: _sb
+                multiline: False
+            Button:
+                text: 'Do the math'
+                on_release: root.math(*args)
+            Label:
+                id: _sr
+                text: ''
             Button:
                 text: 'Go to main screen'
                 font_size: 30
