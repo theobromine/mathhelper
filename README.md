@@ -6,6 +6,15 @@ To run my code you have to install sympy.
 
 MathHelper is my first Kivy python programm which can solve different types of equations.
 
+<i>*For this branch only!*
+
+TODO:
+	
+	-Solve systems using any symbol
+	-Add and remove TextInputs dynamicly
+
+*For this branch only!* </i>
+
 <b>Features</b>:
 
 	-Solving square equals

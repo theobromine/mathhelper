@@ -1,5 +1,4 @@
 from kivy.app import App
-from kivy.lang import Builder
 from kivy.uix.screenmanager import Screen, ScreenManager
 from sympy import *
 
@@ -26,14 +25,29 @@ class SquareEquals(Screen):
 
 class SystemsOfEquations(Screen):
     def math(self, instance):
+        # equals = [self.fe.text, self.se.text]
+        # question = []
+        # answers = [self.fa.text, self.sa.text]
+        # tmp = ''
+        # smbs = []
+        # for i in range(len(equals)-1):
+            # for j in range(len(str(equals[i]))-1):
+                # if str(equals[i])[j].isalpha():
+                    # smbs.append(str(equals[i])[j])
+            # for k in range(len(answers)-1):
+                # for l in range(len(str(answers[i]))-1):
+                    # str(answers[i])[k].replace('+', '-')
+                    # str(answers[i])[k].replace('-', '+')
+            # tmp = str(equals[i])+','+str(answers[k])
+            # question.append(sympify(tmp))
         x = Symbol('x')
         y = Symbol('y')
-        eq1 = sympify(self.fa.text)
-        sol1 = sympify(self.fb.text)
-        eq2 = sympify(self.sa.text)
-        sol2 = sympify(self.sb.text)
+        eq1 = sympify(self.fe.text)
+        sol1 = sympify(self.fa.text)
+        eq2 = sympify(self.se.text)
+        sol2 = sympify(self.sa.text)
         a = solve([Eq(eq1, sol1), Eq(eq2, sol2)], [x, y])
-        self.sr.text = pretty(a)
+        self.l1.text = pretty(a)
 
 
 class MathFunction3(Screen):
@@ -44,124 +58,9 @@ class MyScreenManager(ScreenManager):
     pass
 
 
-main_screen = Builder.load_string('''
-MyScreenManager:
-    MainScreen:
-    SquareEquals:
-    SystemsOfEquations:
-    MathFunction3:
-<MainScreen>:
-    name: 'MainScreen'
-    BoxLayout:
-        orientation: 'vertical'
-        Button:
-            text: 'Square equals'
-            size_hint: (.5, .5)
-            on_release: app.root.current = 'SquareEquals'
-        Button:
-            text: 'Systems of equations'
-            size_hint: (.5, .5)
-            on_release: app.root.current = 'SystemsOfEquations'
-        Button:
-            text: 'Math function # 3'
-            size_hint: (.5, .5)
-            on_release: app.root.current = 'MathFunction3'
-<SquareEquals>:
-    a: _a
-    b: _b
-    c: _c
-    result: _result
-    name: 'SquareEquals'
-    BoxLayout:
-        orientation: 'vertical'
-        size_hint: (1,1)
-        Label:
-            text: 'Square Equals'
-            font_size: 30
-            size_hint: (.3,.1)
-        GridLayout:
-            rows: 2
-            orientation: 'vertical'
-            TextInput:
-                id: _a
-                multiline: 'false'
-            TextInput:
-                id: _b
-                multiline: 'false'
-            TextInput:
-                id: _c
-                multiline: 'false'
-            Button:
-                text: 'Do the math'
-                on_release: root.math(*args)
-            Button:
-                id: _result
-                text: ''
-            BoxLayout:
-                Button:
-                    text: 'Go to main screen'
-                    font_size: 30
-                    on_release: app.root.current = 'MainScreen'
-<SystemsOfEquations>:
-    name: 'SystemsOfEquations'
-    fa: _fa
-    fb: _fb
-    sa: _sa
-    sb: _sb
-    sr: _sr
-    BoxLayout:
-        orientation: 'vertical'
-        size_hint: (1,1)
-        Label:
-            text: 'Systems of equations (use only "x" and "y"!)'
-            font_size: 25
-            size_hint: (.2,.1)
-        GridLayout:
-            cols: 3
-            TextInput:
-                id: _fa
-                multiline: False
-            Label:
-                text: '='
-            TextInput:
-                id: _fb
-                multiline: False
-            TextInput:
-                id: _sa
-                multiline: False
-            Label:
-                text: '='
-            TextInput:
-                id: _sb
-                multiline: False
-            Button:
-                text: 'Do the math'
-                on_release: root.math(*args)
-            Label:
-                id: _sr
-                text: ''
-            Button:
-                text: 'Go to main screen'
-                font_size: 30
-                on_release: app.root.current = 'MainScreen'
-<MathFunction3>:
-    name: 'MathFunction3'
-    BoxLayout:
-        orientation: 'vertical'
-        Label:
-            text: 'Math Function 3'
-            font_size: 30
-        BoxLayout:
-            Button:
-                text: 'Go to main screen'
-                font_size: 30
-                on_release: app.root.current = 'MainScreen'
-''')
-
-
 class MyApp(App):
     def build(self):
-        return main_screen
+        return MyScreenManager()
 
 
 if __name__ == '__main__':
