@@ -9,18 +9,21 @@ class MainScreen(Screen):
 
 class SquareEquals(Screen):
     def math(self, instance):
-        a = int(self.a.text)
-        b = int(self.b.text)
-        c = int(self.c.text)
-        x = Symbol('x')
-        dis = int(self.b.text)**2 - 4 * int(self.a.text) * int(self.c.text)
-        if dis >= 0:
-            a = solve((a*(x**2))+(b*x)+c, x)
-            x1 = a[0]
-            x2 = a[1]
-            self.result.text = pretty(x1) + '\n' + pretty(x2)
-        else:
-            self.result.text = 'D negative'
+        try:
+            a = int(self.a.text)
+            b = int(self.b.text)
+            c = int(self.c.text)
+            x = Symbol('x')
+            dis = int(self.b.text)**2 - 4 * int(self.a.text) * int(self.c.text)
+            if dis >= 0:
+                a = solve((a*(x**2))+(b*x)+c, x)
+                x1 = a[0]
+                x2 = a[1]
+                self.result.text = pretty(x1) + '\n' + pretty(x2)
+            else:
+                self.result.text = 'D negative'
+        except:
+            self.result.text = 'Could not parse input'
 
 
 class SystemsOfEquations(Screen):
@@ -40,14 +43,17 @@ class SystemsOfEquations(Screen):
                     # str(answers[i])[k].replace('-', '+')
             # tmp = str(equals[i])+','+str(answers[k])
             # question.append(sympify(tmp))
-        x = Symbol('x')
-        y = Symbol('y')
-        eq1 = sympify(self.fe.text)
-        sol1 = sympify(self.fa.text)
-        eq2 = sympify(self.se.text)
-        sol2 = sympify(self.sa.text)
-        a = solve([Eq(eq1, sol1), Eq(eq2, sol2)], [x, y])
-        self.l1.text = pretty(a)
+        try:
+            x = Symbol('x')
+            y = Symbol('y')
+            eq1 = sympify(self.fe.text)
+            sol1 = sympify(self.fa.text)
+            eq2 = sympify(self.se.text)
+            sol2 = sympify(self.sa.text)
+            a = solve([Eq(eq1, sol1), Eq(eq2, sol2)], [x, y])
+            self.l1.text = pretty(a)
+        except:
+            self.l1.text = "Error"
 
 
 class MathFunction3(Screen):
